@@ -20,9 +20,9 @@ class Dashboard extends Component {
   }
 
   // This method should set current volume state to reflect the sliders current position
-  // slideHandler = () => {
+  // slideHandler = (e) => {
   //   this.setState({
-      
+  //     currentVolumn: e.target.value
   //   })
   // }
   
@@ -45,7 +45,7 @@ class Dashboard extends Component {
                 <h1>Master Volumn</h1>
                 <p>Overrides all other sound settings in this application</p>
                   <Slider
-                    // onChange={this.slideHandler()}
+                    onChange={this.slideHandler}
                     defaultValue={30}
                     step={10}
                     marks
