@@ -1,15 +1,22 @@
 import React, {Component} from 'react'
 import NavBar from './NavBar';
-import {Card, CardContent, CardActions, CardMedia, Switch, Slider, Select} from "@material-ui/core"
+import {Card, CardContent, CardActions, CardMedia, Grid, Switch, Slider, Select} from "@material-ui/core"
+import './Dash.css'
 
 class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      online: true,
+      online: false,
       currentVolumn: 0,
       quality: 2
     }
+  }
+
+  onlineHandler = () => {
+    this.setState({
+      online: !this.state.online
+    })
   }
   
   render() {
@@ -17,20 +24,38 @@ class Dashboard extends Component {
       <div>
        <NavBar />
 
-       <Card className="online">
-          <h1>Online Mode</h1>
-          <Switch></Switch>
-       </Card>
+       <div className="card-wrapper">
+          <Card className="online" variant="outlined">
+              <CardContent>
+                <h1>Online Mode</h1>
+                <p>Is this application connected to the internet?</p>
+                <Switch onClick={this.onlineHandler}></Switch>
+              </CardContent>
+          </Card>
 
-       <Card className="volumn">
-          <h1>Master Volumn</h1>
-          <Slider></Slider>
-       </Card>
-          
-       <Card className="quality">
-          <h1>Sound Quality</h1>
-          <Select></Select>
-       </Card>
+          <Card className="volumn" variant="outlined">
+              <CardContent>
+                <h1>Master Volumn</h1>
+                <p>Overrides all other sound settings in this application</p>
+                  <Slider
+                    defaultValue={30}
+                    step={10}
+                    marks
+                    min={0}
+                    max={100}
+                    valueLabelDisplay="auto"
+                  />
+              </CardContent>
+          </Card>
+              
+          <Card className="quality" variant="outlined">
+              <CardContent>
+                <h1>Sound Quality</h1>
+                <p>Manually control the music quality in the event of poor connection</p>
+                <Select></Select>
+              </CardContent>
+          </Card>
+       </div>
 
        <h1>System Notifications</h1>
       </div>

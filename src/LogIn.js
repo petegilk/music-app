@@ -26,7 +26,7 @@ class LogIn extends Component {
             <CardContent>
                <TextField label="Username *" /><br />
                <TextField label="Password *" /><br />
-               <Button onClick={this.clickHandler}>Log In</Button>
+               <Button className="logInButton" onClick={this.clickHandler}>Log In</Button>
             </CardContent>
           </Card>
       </div>
