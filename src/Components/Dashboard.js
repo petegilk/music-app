@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import NavBar from './NavBar';
-import {Card, CardContent, CardActions, CardMedia, Grid, Switch, Slider, Select} from "@material-ui/core"
+import {Card, CardContent, CardActions, CardMedia, MenuItem, Switch, Slider, Select} from "@material-ui/core"
 import './Dash.css'
 
 class Dashboard extends Component {
@@ -18,12 +18,19 @@ class Dashboard extends Component {
       online: !this.state.online
     })
   }
+
+  // This method should set current volume state to reflect the sliders current position
+  // slideHandler = () => {
+  //   this.setState({
+      
+  //   })
+  // }
   
   render() {
     return(
       <div>
        <NavBar />
-
+        <h1>Welcome, user!</h1>
        <div className="card-wrapper">
           <Card className="online" variant="outlined">
               <CardContent>
@@ -38,6 +45,7 @@ class Dashboard extends Component {
                 <h1>Master Volumn</h1>
                 <p>Overrides all other sound settings in this application</p>
                   <Slider
+                    // onChange={this.slideHandler()}
                     defaultValue={30}
                     step={10}
                     marks
@@ -52,12 +60,16 @@ class Dashboard extends Component {
               <CardContent>
                 <h1>Sound Quality</h1>
                 <p>Manually control the music quality in the event of poor connection</p>
-                <Select></Select>
+                <Select>
+                  <MenuItem value="Low">Low</MenuItem>
+                  <MenuItem value="Normal">Normal</MenuItem>
+                  <MenuItem value="High">High</MenuItem>
+                </Select>
               </CardContent>
           </Card>
        </div>
 
-       <h1>System Notifications</h1>
+       <h2>System Notifications</h2>
       </div>
     )
   }
