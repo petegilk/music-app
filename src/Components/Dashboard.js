@@ -64,9 +64,24 @@ class Dashboard extends Component {
     })
   }
 
-  qualityHandler = (e, v) => {
-    console.log(e);
-    
+  qualityHandler = (e) => {
+    let int = parseInt(e.target.value)
+    this.setState({
+      quality: int
+    }, () => {
+      if (this.state.quality === 1) {
+        this.setState({
+          messages: [...this.state.messages, notification[2]]
+        })
+      } else {
+        let messageIndex = this.state.messages.indexOf("Music quality is degraded. Increase quality if your connection allows it.")
+        let messageCopy = [...this.state.messages]
+        messageCopy.splice(messageIndex, 1)
+        this.setState({
+          messages: messageCopy
+        })
+      }
+    })
   }
   
   render() {
@@ -104,7 +119,7 @@ class Dashboard extends Component {
               <CardContent>
                 <h1>Sound Quality</h1>
                 <p>Manually control the music quality in the event of poor connection</p>
-                <Select onChange={this.qualityHandler} value={this.state.quality}>
+                <Select onChange={this.qualityHandler} defaultValue={this.state.quality}>
                   <MenuItem value="1">Low</MenuItem>
                   <MenuItem value="2">Normal</MenuItem>
                   <MenuItem value="3">High</MenuItem>
