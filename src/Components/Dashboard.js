@@ -1,42 +1,86 @@
 import React, {Component} from 'react'
 import NavBar from './NavBar';
-import {Card, CardContent, CardActions, CardMedia, MenuItem, Switch, Slider, Select} from "@material-ui/core"
+import {Card, CardContent, MenuItem, Switch, Slider, Select} from "@material-ui/core"
 import './Dash.css'
+
+const notification = [
+  "Your application is offline. You won't be able to share or stream music to other devices",
+  "Listening to music at a high volume could cause long-term hearing loss.",
+  "Music quality is degraded. Increase quality if your connection allows it."
+]
 
 class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      online: false,
+      online: true,
       currentVolumn: 0,
-      quality: 2
+      quality: 2,
+      messages: []
     }
   }
 
   onlineHandler = () => {
     this.setState({
       online: !this.state.online
+    }, () => {
+      if(this.state.online === false) {
+        this.setState({
+          messages: [...this.state.messages, notification[0]]
+        }) 
+      } else if (this.state.online === true) {
+        let messageIndex = this.state.messages.indexOf( "Your application is offline. You won't be able to share or stream music to other devices")
+        let messageCopy = [...this.state.messages]
+        messageCopy.splice(messageIndex, 1)
+          this.setState({
+            messages: messageCopy
+        })
+      }
+    })
+    
+  }
+
+
+  // This method should set current volume state to reflect the sliders current position
+  slideHandler = (e, v) => {
+    this.setState({
+      currentVolumn: v
+    }, () => {
+      if (this.state.currentVolumn === 80) {
+        let messageIndex = this.state.messages.indexOf("Listening to music at a high volume could cause long-term hearing loss.")
+        let messageCopy = [...this.state.messages]
+        messageCopy.splice(messageIndex, 1, notification[1])
+        this.setState({
+          messages: messageCopy
+        }) 
+      } else if (this.state.currentVolumn < 80) {
+        let messageIndex = this.state.messages.indexOf("Listening to music at a high volume could cause long-term hearing loss.")
+        let messageCopy = [...this.state.messages]
+        messageCopy.splice(messageIndex, 1)
+          this.setState({
+            messages: messageCopy
+        })
+      }
     })
   }
 
-  // This method should set current volume state to reflect the sliders current position
-  // slideHandler = (e) => {
-  //   this.setState({
-  //     currentVolumn: e.target.value
-  //   })
-  // }
+  qualityHandler = (e, v) => {
+    console.log(e);
+    
+  }
   
   render() {
     return(
       <div>
        <NavBar />
         <h1>Welcome, user!</h1>
+
        <div className="card-wrapper">
           <Card className="online" variant="outlined">
               <CardContent>
                 <h1>Online Mode</h1>
                 <p>Is this application connected to the internet?</p>
-                <Switch onClick={this.onlineHandler}></Switch>
+                <Switch onClick={this.onlineHandler} checked={this.state.online}></Switch>
               </CardContent>
           </Card>
 
@@ -60,16 +104,21 @@ class Dashboard extends Component {
               <CardContent>
                 <h1>Sound Quality</h1>
                 <p>Manually control the music quality in the event of poor connection</p>
-                <Select>
-                  <MenuItem value="Low">Low</MenuItem>
-                  <MenuItem value="Normal">Normal</MenuItem>
-                  <MenuItem value="High">High</MenuItem>
+                <Select onChange={this.qualityHandler} value={this.state.quality}>
+                  <MenuItem value="1">Low</MenuItem>
+                  <MenuItem value="2">Normal</MenuItem>
+                  <MenuItem value="3">High</MenuItem>
                 </Select>
               </CardContent>
           </Card>
        </div>
 
        <h2>System Notifications</h2>
+        <ul>
+          {this.state.messages.map((item, i) => {
+            return <li key={i}>{item}</li>
+          })}
+        </ul>
       </div>
     )
   }
