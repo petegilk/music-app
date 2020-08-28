@@ -93,7 +93,7 @@ class Dashboard extends Component {
     return(
       <div>
        <NavBar />
-        <h1>Welcome, {this.state.user}</h1>
+        <h1>Welcome {this.state.user}</h1>
 
        <div className="card-wrapper">
           <Card className="online" variant="outlined">
