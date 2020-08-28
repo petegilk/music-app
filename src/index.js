@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 import LogIn from './LogIn';
 import * as serviceWorker from './serviceWorker';
+import Router from './Router'; 
+
+const Main = () => {
+  return (
+    <BrowserRouter>
+      <Router/>
+    </BrowserRouter>
+  )
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <LogIn />
+    <Main />
   </React.StrictMode>,
   document.getElementById('root')
 );
