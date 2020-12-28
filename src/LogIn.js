@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import NavBar from './NavBar';
-import Dashboard from './Dashboard';
+import NavBar from './Components/NavBar';
+import Dashboard from './Components/Dashboard';
 import { Button, TextField , Card, CardContent } from '@material-ui/core';
 import './App.css';
 
